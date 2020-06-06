@@ -2,8 +2,8 @@
 
 
 $host = "localhost";
-$usuario= "root";
-$contraseña = "programacion";
+$usuario= "";
+$contraseña = "";
 
 try {
    $conexion = new PDO("mysql:host=$host;dbname=bd_systesto", $usuario, $contraseña);

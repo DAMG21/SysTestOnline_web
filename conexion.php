@@ -14,6 +14,9 @@ try {
 catch(PDOException $error)
     {
     echo "No se pudo conectar a la BD: " . $error->getMessage();
+
+
+    
     }
 
 ?>

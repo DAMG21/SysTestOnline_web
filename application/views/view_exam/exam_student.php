@@ -98,7 +98,9 @@
                 <div class="col-sm-2 invoice-col">
                   <address>
                     <strong>Respuestas Incorrectas</strong><br>
-                      2<br>
+                     <?php $answer_incorrect = $information->total_questions - $information->correct_answers;
+                     echo $answer_incorrect;
+                     ?><br>
                   </address>
                 </div>
                 <div class="col-sm-3 invoice-col">
@@ -129,6 +131,7 @@
 
           <?php
           $cont=0;
+
               foreach ($detail_exam->result() as $detail){
             ?>
           <div class="col-12">
@@ -144,6 +147,7 @@
 
               <div class="card-body" style="display: block;">
           <?php
+
           switch ($detail->type_question) {
               case "multiple_choice":
                   if ($detail->img_exercise === null ) {
@@ -246,14 +250,28 @@
                                   $extension = pathinfo($detail->img_exercise)['extension'];
 
                                   if ($extension=="jpg" || $extension == "jpeg" || $extension == "png") {
-                                      echo "<div class='alert alert-warning alert-dismissible'>
+
+                                      if ($detail->flag==="1") {
+                                              echo "<div class='alert alert-success alert-dismissible'>
+                                                  <h5><i class='icon fas fa-check'></i>Correcta</h5>
+                                                  Respuesta correcta
+                                                </div>";
+                                            }elseif ($detail->flag==="0") {
+                                          echo "<div class='alert alert-danger alert-dismissible'>
+                                                  <h5><i class='icon fas fa-times'></i>Incorrecta</h5>
+                                                  Respuesta incorrecta
+                                                </div>";
+                                            }else{
+                                            echo "<div class='alert alert-warning alert-dismissible'>
                                               <h5><i class='icon fas fa-exclamation-triangle'></i> Sin evaluar</h5>
                                               Pregunta aun sin evaluar.
                                             </div>";
+                                          }
                                       echo '<img src="../'.$detail->ruta_exercise.'" border="1" alt="Ejercicio" width="500" height="300"> <br>';
                                       echo "<h4> Respuesta contestada: ".$detail->answer."</h4> ";   
-                                      echo "<button type='button' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
-                                      <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";
+                                      echo "<button type='button' data-toggle='modal' data-target='#open_question_correct' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
+
+                                      <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";
      
                                   } else {
                                      echo "<div class='alert alert-warning alert-dismissible'>
@@ -262,8 +280,9 @@
                                             </div>";
                                      echo '<audio src="../'.$detail->ruta_exercise.'" controls="controls" type="audio/mpeg" preload="preload"></audio>';
                                      echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;" required name="'.$detail->id_reagents.'">"'.$detail->answer.'"</textarea>'; 
-                                     echo "<button type='button' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
-                                      <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";       
+                                      echo "<button type='button' data-toggle='modal' data-target='#open_question_correct' data-id_answer='$detail->id_answer' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
+
+                                      <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";      
                                   }
                          }
                   break;
@@ -367,14 +386,16 @@
 </div>
 <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="<?php echo base_url('assets/');?>plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/');?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/');?>dist/js/adminlte.min.js"></script>
-<script src="<?php echo base_url('assets/');?>plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <!-- jQuery -->
+  <script src="<?php echo base_url('assets/');?>plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?php echo base_url('assets/');?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?php echo base_url('assets/');?>dist/js/adminlte.min.js"></script>
+  <script src="<?php echo base_url('assets/');?>plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 </body>
 </html>
   <style type="text/css">
@@ -383,3 +404,118 @@
 
     }
   </style>
+
+<div class="modal fade" id="open_question_correct" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" style="font-family: 'Roboto', sans-serif;"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form action="<?php echo site_url('page/open_question_correct');?>" role="form" accept-charset="utf-8" method="post" id="question_correct"> 
+             <input type="hidden" name="id_answer" id="id_answer">
+             <input type="hidden" name="id_exam" id="id_exam">
+             <input type="hidden" name="id_student" id="id_student">
+             <h2 style="font-family: 'Roboto', sans-serif;">¿Estas seguro de evaluar esta respuesta como: Correcta?</h2>
+             <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+             </div>
+            </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="open_question_incorrect" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" style="font-family: 'Roboto', sans-serif;"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form action="<?php echo site_url('page/open_question_incorrect');?>" role="form" accept-charset="utf-8" method="post" id="question_incorrect"> 
+             <input type="hidden" name="id_answer" id="id_answer">
+             <input type="hidden" name="id_exam" id="id_exam">
+             <input type="hidden" name="id_student" id="id_student">
+             <h2 style="font-family: 'Roboto', sans-serif;">¿Estas seguro de evaluar esta respuesta como: Incorrecta?</h2>
+             <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+             </div>
+            </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
+
+
+<script type="text/javascript">
+  $('#open_question_correct').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id_answer = button.data('id_answer')
+    var id_student = button.data('id_student')
+    var id_exam = button.data('id_exam')
+    var modal = $(this)
+    modal.find('.modal-title').text('Confirmación')
+    modal.find('.modal-body #id_answer').val(id_answer)
+    modal.find('.modal-body #id_exam').val(id_exam)
+    modal.find('.modal-body #id_student').val(id_student)
+  })
+  $('#open_question_incorrect').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id_answer = button.data('id_answer')
+    var id_student = button.data('id_student')
+    var id_exam = button.data('id_exam')
+    var modal = $(this)
+    modal.find('.modal-title').text('Confirmación')
+    modal.find('.modal-body #id_answer').val(id_answer)
+    modal.find('.modal-body #id_exam').val(id_exam)
+    modal.find('.modal-body #id_student').val(id_student)
+  })
+     $(document).on('submit', '#question_correct', function(e)
+    {
+     e.preventDefault();
+     $.ajax({
+      method:'post',
+      url: this.action,
+      data: $(this).serialize(),
+      success:function(data)
+      {
+        swal({
+        title: "Modificado a respuesta: Correcta",
+        text: "Vuelve a cargar la página para ver los cambios",
+        icon: "success",
+        button: "Continuar",
+          });
+      }
+     });
+    });
+  $(document).on('submit', '#question_incorrect', function(e)
+    {
+     e.preventDefault();
+     $.ajax({
+      method:'post',
+      url: this.action,
+      data: $(this).serialize(),
+      success:function(data)
+      {
+        swal({
+        title: "Modificado a respuesta: Incorrecta",
+        text: "Vuelve a cargar la página para ver los cambios",
+        icon: "success",
+        button: "Continuar",
+          });
+      }
+     });
+    });
+</script>

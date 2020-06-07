@@ -378,7 +378,23 @@ class Page extends CI_Controller{
       $id_detail = $this->input->post('id_detail');
       $this->detail_exam->delete_evaluation_BD($id_exam,$id_student,$id_detail); 
     }
-    public  function logout()
+    public function open_question_incorrect()
+    {
+      $this->load->model('exam_results/detail_exam');
+      $id_answer = $this->input->post('id_answer');
+      $id_student = $this->input->post('id_student');
+      $id_exam = $this->input->post('id_exam');
+      $this->detail_exam->open_question_incorrect_BD($id_answer,$id_student,$id_exam); 
+    }
+    public function open_question_correct()
+    {
+      $this->load->model('exam_results/detail_exam');
+      $id_answer = $this->input->post('id_answer');
+      $id_student = $this->input->post('id_student');
+      $id_exam = $this->input->post('id_exam');
+      $this->detail_exam->open_question_correct_BD($id_answer,$id_student,$id_exam); 
+    }
+    public function logout()
     {
       $this->session->sess_destroy();
       redirect('login');

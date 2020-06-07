@@ -1,9 +1,9 @@
 <?php
 
 
-$host = "";
-$usuario= "";
-$contraseña = "";
+$host = "localhost";
+$usuario= "root";
+$contraseña = "programacion";
 
 try {
    $conexion = new PDO("mysql:host=$host;dbname=bd_systesto", $usuario, $contraseña);

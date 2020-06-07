@@ -22,8 +22,11 @@ class login_student extends CI_Controller{
             'id_student'  => $id_student,
             'logged_in' => TRUE);
         $this->session->set_userdata($sesdata);
+
        echo "<SCRIPT>javascript:window.open('../page_student/view_exam', 'noimporta', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=1500, height=1000,location=NO');</SCRIPT>";
         $this->load->view('login_view_student');
+
+     
     }else{
         echo $this->session->set_flashdata('msg','Correo o token no valida, porfavor intentelo nuevamente');
         redirect('login_student');

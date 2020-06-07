@@ -38,6 +38,7 @@ class detail_exam extends CI_Model
     foreach($validation as $id_pregunta=>$respuesta)
       {
         $datos = array('answer' => $respuesta,
+                'flag' => $respuesta,
                 'id_student' => $this->session->userdata('id_student'),
                 'id_exam' => $this->session->userdata('id_exam'),
                 'id_group' => $this->session->userdata('id_group'),

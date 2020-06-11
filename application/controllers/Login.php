@@ -26,16 +26,9 @@ class Login extends CI_Controller{
             'id_group'  => $id_group,
             'logged_in' => TRUE);
         $this->session->set_userdata($sesdata);
-        // access login for admin
-        if($categoria === 'PROFESOR DE ASIGNATURA'){
+
             redirect('page/panel');
-        // access login for staff
-        }elseif($categoria === 'PROFESOR DE ASIGNATURA'){
-            redirect('page/panel');
-        // access login for author
-        }else{
-            redirect('page/panel');
-        }
+
     }else{
         echo $this->session->set_flashdata('msg','Usuario o Contraseña no valida, porfavor intentelo nuevamente');
         redirect('login');

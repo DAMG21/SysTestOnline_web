@@ -147,7 +147,6 @@
 
               <div class="card-body" style="display: block;">
           <?php
-
           switch ($detail->type_question) {
               case "multiple_choice":
                   if ($detail->img_exercise === null ) {
@@ -246,6 +245,29 @@
                   break;
               case "open_question":
               if ($detail->img_exercise === null ) {
+                      if ($detail->flag==="1") {
+                                          echo "<div class='alert alert-success alert-dismissible'>
+                                                  <h5><i class='icon fas fa-check'></i>Correcta</h5>
+                                                  Respuesta correcta
+                                                </div>";
+                                            }elseif ($detail->flag==="0") {
+                                          echo "<div class='alert alert-danger alert-dismissible'>
+                                                  <h5><i class='icon fas fa-times'></i>Incorrecta</h5>
+                                                  Respuesta incorrecta
+                                                </div>";
+                                            }else{
+                                            echo "<div class='alert alert-warning alert-dismissible'>
+                                              <h5><i class='icon fas fa-exclamation-triangle'></i> Sin evaluar</h5>
+                                              Pregunta aun sin evaluar.
+                                            </div>";
+                                          }
+
+                                   echo "<h4> Respuesta contestada: ".$detail->answer."</h4> ";   
+                                   echo "<button type='button' data-toggle='modal' data-target='#open_question_correct' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
+
+                                      <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";
+ 
+
                         }elseif($detail->img_exercise == true) {
                                   $extension = pathinfo($detail->img_exercise)['extension'];
 
@@ -274,15 +296,29 @@
                                       <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";
      
                                   } else {
-                                     echo "<div class='alert alert-warning alert-dismissible'>
+                                     if ($detail->flag==="1") {
+                                              echo "<div class='alert alert-success alert-dismissible'>
+                                                  <h5><i class='icon fas fa-check'></i>Correcta</h5>
+                                                  Respuesta correcta
+                                                </div>";
+                                            }elseif ($detail->flag==="0") {
+                                          echo "<div class='alert alert-danger alert-dismissible'>
+                                                  <h5><i class='icon fas fa-times'></i>Incorrecta</h5>
+                                                  Respuesta incorrecta
+                                                </div>";
+                                            }else{
+                                            echo "<div class='alert alert-warning alert-dismissible'>
                                               <h5><i class='icon fas fa-exclamation-triangle'></i> Sin evaluar</h5>
                                               Pregunta aun sin evaluar.
                                             </div>";
-                                     echo '<audio src="../'.$detail->ruta_exercise.'" controls="controls" type="audio/mpeg" preload="preload"></audio>';
-                                     echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;" required name="'.$detail->id_reagents.'">"'.$detail->answer.'"</textarea>'; 
-                                      echo "<button type='button' data-toggle='modal' data-target='#open_question_correct' data-id_answer='$detail->id_answer' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
+                                          }
 
-                                      <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";      
+                                     echo '<audio src="../'.$detail->ruta_exercise.'" controls="controls" type="audio/mpeg" preload="preload"></audio>';
+                                     echo "<h4> Respuesta contestada: ".$detail->answer."</h4> "; 
+                                       
+                                   echo "<button type='button' data-toggle='modal' data-target='#open_question_correct' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-success'><i class='fas fa-check'></i></button>
+
+                                      <button type='button' data-toggle='modal' data-target='#open_question_incorrect' data-id_answer='$detail->id_answer' data-id_student='$detail->id_student' data-id_exam='$detail->id_exam' class='btn btn-sm btn-danger'><i class='fas fa-times'></i></button>";    
                                   }
                          }
                   break;

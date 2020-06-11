@@ -86,16 +86,20 @@
                       <td><?php echo $group->email_student;?></td>
                       <td><?php echo $group->token_student;?></td>
                     <div class="oculto-impresion">
-                      <td><?php $token = hash('crc32b', $hora.$group->enrollment.$this->session->userdata('id_group'));
+                      <td>
+                        <?php
+                         $token = hash('crc32b', $group->enrollment.$this->session->userdata('id_group').$hora);
                       if ($group->status == 0) { ?>
                       <button type="button" class="btn btn-block btn-default oculto-impresion" data-toggle="modal" data-target="#add_token" data-token="<?php echo $token ;?>" data-id_student="<?php echo $group->id_student;?>" data-id_group="<?php echo $group->id_group;?>" data-email="<?php echo $group->email_student;?>">Habilitar</button>
                       <?php  } else { ?>
                        <button type="button" class="btn btn-block btn-default oculto-impresion" data-toggle="modal" data-target="#remove_token" data-id_student="<?php echo $group->id_student;?>" data-id_group="<?php echo $group->id_group;?>">Deshabilitar</button>
                       <?php  }?>
                       </td>
-                      <td><button type="button" class="btn btn-block btn-default oculto-impresion" data-toggle="modal" data-target="#edit_student" data-id_student="<?php echo $group->id_student;?>" data-name="<?php echo $group->name_student;?>" data-ap_paternal="<?php echo $group->ap_paternal;?>" data-ap_maternal="<?php echo $group->ap_maternal;?>" data-email="<?php echo $group->email_student;?>" data-enrollment="<?php echo $group->enrollment;?>"><i class="far fa-edit"></i></button>
+                      <td>
+                        <button type="button" class="btn btn-block btn-default oculto-impresion" data-toggle="modal" data-target="#edit_student" data-id_student="<?php echo $group->id_student;?>" data-name="<?php echo $group->name_student;?>" data-ap_paternal="<?php echo $group->ap_paternal;?>" data-ap_maternal="<?php echo $group->ap_maternal;?>" data-email="<?php echo $group->email_student;?>" data-enrollment="<?php echo $group->enrollment;?>"><i class="far fa-edit"></i></button>
                       </td>
-                      <td><button type="button" class="btn btn-block btn-default oculto-impresion" data-id_student="<?php echo $group->id_student;?>" data-toggle="modal" data-target="#remove_student"><span style="color: Tomato;"><i class="far fa-trash-alt"></i></span></button>
+                      <td>
+                        <button type="button" class="btn btn-block btn-default oculto-impresion" data-id_student="<?php echo $group->id_student;?>" data-toggle="modal" data-target="#remove_student"><span style="color: Tomato;"><i class="far fa-trash-alt"></i></span></button>
                       </td>
                     </div>
                     </tr>
@@ -126,9 +130,10 @@
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020</strong> SysTestOnline 
   </footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="http://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
   <!-- jQuery -->
 <script src="<?php echo base_url('assets/');?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -136,7 +141,7 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/');?>dist/js/adminlte.min.js"></script>
 <script src="<?php echo base_url('application/libraries/insert_ratings/message_insert.js');?>"></script>
-<script src="<?php echo base_url('application/libraries/students/tokens.js');?>"></script>
+#<script src="<?php echo base_url('application/libraries/students/tokens.js');?>"></script>
 <script src="<?php echo base_url('application/libraries/students/students.js');?>"></script>
 
 <div class="modal fade fuente_roboto" id="assign_exam_modal" style="display: none;" aria-hidden="true">
@@ -308,7 +313,7 @@
             </div>
             <div class="modal-body">
              <form action="<?php echo site_url('page/remove_token');?>" role="form" accept-charset="utf-8" method="post" id="add_token"> 
-             <input type="hidden" name="id_group" id="id_group">
+             <input type="hidden" name="id_group" value="<?php echo $this->session->userdata('id_group')?>">
              <input type="hidden" name="id_student" id="id_student">
              <h2>¿Desea desactivar el token a este alumno?</h2>
              <div class="modal-footer justify-content-between">

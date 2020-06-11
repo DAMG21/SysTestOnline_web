@@ -30,7 +30,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="<?php echo base_url('assets/logo_institucional/');?>Logo_plataforma.jpeg"
+                       src="<?php echo base_url('assets/logo_plataforma/');?>Logo_plataforma.jpeg"
                        alt="User profile picture">
                 </div>
 

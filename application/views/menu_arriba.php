@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary ">
     <!-- Brand Logo -->
     <a href="<?php echo site_url('page/panel');?>" class="brand-link">
-      <img src="<?php echo base_url('assets/');?>logo_institucional/Logo_plataforma.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-2 img-fluid">
+      <img src="<?php echo base_url('assets/');?>logo_plataforma/Logo_plataforma.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-2 img-fluid">
       <span class="brand-text font-weight-light">SysTestOnline</span>
     </a>
 

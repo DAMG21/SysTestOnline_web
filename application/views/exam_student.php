@@ -137,7 +137,7 @@
 						          } elseif ($detail_reagents->img_exercise == true) {
                                $extension = pathinfo($detail_reagents->img_exercise)['extension'];
                                if ($extension=="jpg" || $extension == "jpeg" || $extension == "png") {
-                   echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" alt="Ejercicio" width="500" height="300">';
+                   echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" class="img-fluid" width="500" height="300">';
                     echo '
                           <div class="form-group">
                             <div class="row">
@@ -172,12 +172,12 @@
 					        break;
 					    case "open_question":
 					    if ($detail_reagents->img_exercise === null ) {
-                              echo '<textarea class="form-control text-center" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;" name="'.$detail_reagents->id_reagents.'"></textarea>';				
+                              echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;" name="'.$detail_reagents->id_reagents.'"></textarea>';				
                   	    }elseif($detail_reagents->img_exercise == true) {
                                   $extension = pathinfo($detail_reagents->img_exercise)['extension'];
 
                                   if ($extension=="jpg" || $extension == "jpeg" || $extension == "png") {
-                                      echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" alt="Ejercicio" width="500" height="300">';
+                                      echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" class="img-fluid" width="500" height="300">';
                                       echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;" required name="'.$detail_reagents->id_reagents.'"></textarea>';         
                                   } else {
                                      echo '<audio src="../'.$detail_reagents->ruta_exercise.'" controls="controls" type="audio/mpeg" preload="preload"></audio>';
@@ -202,7 +202,7 @@
                                $extension = pathinfo($detail_reagents->ruta_exercise)['extension'];
                                if ($extension=="jpg" || $extension == "jpeg" || $extension == "png") {
                       echo '
-                      <img src="../'.$detail_reagents->ruta_exercise.'" border="1" alt="Este es el ejemplo de un texto alternativo" width="500" height="300">';
+                      <img src="../'.$detail_reagents->ruta_exercise.'" border="1" class="img-fluid" width="500" height="300">';
                     echo '
                           <div class="form-group">
                             <div class="row">

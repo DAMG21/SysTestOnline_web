@@ -125,7 +125,7 @@
  <footer class="main-footer oculto-impresion">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      V 1.0.0.0
+      
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020</strong> SysTestOnline 
@@ -141,7 +141,7 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/');?>dist/js/adminlte.min.js"></script>
 <script src="<?php echo base_url('application/libraries/insert_ratings/message_insert.js');?>"></script>
-#<script src="<?php echo base_url('application/libraries/students/tokens.js');?>"></script>
+<script src="<?php echo base_url('application/libraries/students/tokens.js');?>"></script>
 <script src="<?php echo base_url('application/libraries/students/students.js');?>"></script>
 
 <div class="modal fade fuente_roboto" id="assign_exam_modal" style="display: none;" aria-hidden="true">
@@ -287,13 +287,14 @@
               </button>
             </div>
             <div class="modal-body">
-             <form action="<?php echo site_url('page/add_token');?>" role="form" accept-charset="utf-8" method="post" id="add_token"> 
+             <form action="<?php echo site_url('page/add_token');?>" role="form" accept-charset="utf-8" method="post" id="add_token_ajax"> 
              <input type="hidden" name="token" id="token">
              <input type="hidden" name="id_student" id="id_student">
+             <input type="hidden" name="email" id="email">
              <h2>¿Desea activar el token a este alumno y enviarlo al correo?</h2>
              <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+              <button type="submit" id="add_token_btn" class="btn btn-primary">Aceptar y continuar</button>
              </div>
             </form>
             </div>
@@ -312,13 +313,13 @@
               </button>
             </div>
             <div class="modal-body">
-             <form action="<?php echo site_url('page/remove_token');?>" role="form" accept-charset="utf-8" method="post" id="add_token"> 
+             <form action="<?php echo site_url('page/remove_token');?>" role="form" accept-charset="utf-8" method="post" id="remove_token_ajax"> 
              <input type="hidden" name="id_group" value="<?php echo $this->session->userdata('id_group')?>">
              <input type="hidden" name="id_student" id="id_student">
              <h2>¿Desea desactivar el token a este alumno?</h2>
              <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+              <button type="submit" id="remove_token_btn" class="btn btn-primary">Aceptar y continuar</button>
              </div>
             </form>
             </div>
@@ -506,12 +507,12 @@
               </button>
             </div>
             <div class="modal-body">
-             <form action="<?php echo site_url('page/all_active_tokens');?>" role="form" accept-charset="utf-8" method="post" id="all_active_tokens"> 
+             <form action="<?php echo site_url('page/all_active_tokens');?>" role="form" accept-charset="utf-8" method="post" id="all_active_tokens_ajax"> 
              <input type="hidden" name="group" id="group" value="<?php echo $this->session->userdata('id_group')?>">
              <h2>¿Activar el accesos a todos los alumnos de este grupo?</h2>
              <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+              <button type="submit" id="all_active_tokens_btn" class="btn btn-primary">Aceptar y continuar</button>
              </div>
             </form>
             </div>
@@ -530,12 +531,12 @@
               </button>
             </div>
             <div class="modal-body">
-             <form action="<?php echo site_url('page/all_deactivate_tokens');?>" role="form" accept-charset="utf-8" method="post" id="all_deactivate_tokens"> 
+             <form action="<?php echo site_url('page/all_deactivate_tokens');?>" role="form" accept-charset="utf-8" method="post" id="all_deactivate_tokens_ajax"> 
              <input type="hidden" name="group" id="group" value="<?php echo $this->session->userdata('id_group')?>">
              <h2>¿Cerrar los accesos a todos los alumnos de este grupo?</h2>
              <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Aceptar y continuar</button>
+              <button type="submit" id="all_deactivate_tokens_btn" class="btn btn-primary">Aceptar y continuar</button>
              </div>
             </form>
             </div>
@@ -544,6 +545,204 @@
         </div>
         <!-- /.modal-dialog -->
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+      $("#add_token_ajax").bind("submit",function(){
+          // Capturamnos el boton de envío
+          var btnEnviar = $("#add_token_btn");
+          $.ajax({
+              type: $(this).attr("method"),
+              url: $(this).attr("action"),
+              data:$(this).serialize(),
+              beforeSend: function(){
+                  /*
+                  * Esta función se ejecuta durante el envió de la petición al
+                  * servidor.
+                  * */
+                 btnEnviar.text("Habilitando token...");
+                btnEnviar.val("Enviando"); // Para input de tipo button
+                btnEnviar.attr("disabled","disabled");
+              },
+              complete:function(data){
+                  /*
+                  * Se ejecuta al termino de la petición
+                  * */
+                  btnEnviar.val("Enviar formulario");
+                  btnEnviar.removeAttr("disabled");
+              },
+              success: function(data){
+                  /*
+                  * Se ejecuta cuando termina la petición y esta ha sido
+                  * correcta
+                  * */
+                 swal({
+                  title: "Token habilitado correctamente",
+                    text: "Vuelve a cargar la página para ver los cambios",
+                    icon: "success",
+                    button: "Continuar",
+                    }).then(function() {
+                        location.reload();
+                     });
+              },
+              error: function(data){
+                  /*
+                  * Se ejecuta si la peticón ha sido erronea
+                  * */
+                  alert("Problemas al tratar de enviar el formulario");
+              }
+          });
+          // Nos permite cancelar el envio del formulario
+          return false;
+      });
+  });
+    $(document).ready(function () {
+      $("#remove_token_ajax").bind("submit",function(){
+          // Capturamnos el boton de envío
+          var btnEnviar = $("#remove_token_btn");
+          $.ajax({
+              type: $(this).attr("method"),
+              url: $(this).attr("action"),
+              data:$(this).serialize(),
+              beforeSend: function(){
+                  /*
+                  * Esta función se ejecuta durante el envió de la petición al
+                  * servidor.
+                  * */
+                 btnEnviar.text("Deshabilitando token...");
+                btnEnviar.val("Enviando"); // Para input de tipo button
+                btnEnviar.attr("disabled","disabled");
+              },
+              complete:function(data){
+                  /*
+                  * Se ejecuta al termino de la petición
+                  * */
+                  btnEnviar.val("Enviar formulario");
+                  btnEnviar.removeAttr("disabled");
+              },
+              success: function(data){
+                  /*
+                  * Se ejecuta cuando termina la petición y esta ha sido
+                  * correcta
+                  * */
+            swal({
+                  title: "Token deshabilitado correctamente",
+                    text: "Vuelve a cargar la página para ver los cambios",
+                    icon: "success",
+                    button: "Continuar",
+                    }).then(function() {
+                        location.reload();
+                    });
+              },
+              error: function(data){
+                  /*
+                  * Se ejecuta si la peticón ha sido erronea
+                  * */
+
+              }
+          });
+          // Nos permite cancelar el envio del formulario
+          return false;
+      });
+  });
+     $(document).ready(function () {
+      $("#all_active_tokens_ajax").bind("submit",function(){
+          // Capturamnos el boton de envío
+          var btnEnviar = $("#all_active_tokens_btn");
+          $.ajax({
+              type: $(this).attr("method"),
+              url: $(this).attr("action"),
+              data:$(this).serialize(),
+              beforeSend: function(){
+                  /*
+                  * Esta función se ejecuta durante el envió de la petición al
+                  * servidor.
+                  * */
+                 btnEnviar.text("Habilitando tokens...");
+                btnEnviar.val("Enviando"); // Para input de tipo button
+                btnEnviar.attr("disabled","disabled");
+              },
+              complete:function(data){
+                  /*
+                  * Se ejecuta al termino de la petición
+                  * */
+                  btnEnviar.val("Enviar formulario");
+                  btnEnviar.removeAttr("disabled");
+              },
+              success: function(data){
+                  /*
+                  * Se ejecuta cuando termina la petición y esta ha sido
+                  * correcta
+                  * */
+                 swal({
+                  title: "Tokens habilitados correctamente",
+                    text: "Vuelve a cargar la página para ver los cambios",
+                    icon: "success",
+                    button: "Continuar",
+                    }).then(function() {
+                        location.reload();
+                     });
+              },
+              error: function(data){
+                  /*
+                  * Se ejecuta si la peticón ha sido erronea
+                  * */
+                  alert("Problemas al tratar de enviar el formulario");
+              }
+          });
+          // Nos permite cancelar el envio del formulario
+          return false;
+      });
+  });
+ $(document).ready(function () {
+      $("#all_deactivate_tokens_ajax").bind("submit",function(){
+          // Capturamnos el boton de envío
+          var btnEnviar = $("#all_deactivate_tokens_btn");
+          $.ajax({
+              type: $(this).attr("method"),
+              url: $(this).attr("action"),
+              data:$(this).serialize(),
+              beforeSend: function(){
+                  /*
+                  * Esta función se ejecuta durante el envió de la petición al
+                  * servidor.
+                  * */
+                 btnEnviar.text("Deshabilitando tokens...");
+                btnEnviar.val("Enviando"); // Para input de tipo button
+                btnEnviar.attr("disabled","disabled");
+              },
+              complete:function(data){
+                  /*
+                  * Se ejecuta al termino de la petición
+                  * */
+                  btnEnviar.val("Enviar formulario");
+                  btnEnviar.removeAttr("disabled");
+              },
+              success: function(data){
+                  /*
+                  * Se ejecuta cuando termina la petición y esta ha sido
+                  * correcta
+                  * */
+                 swal({
+                  title: "Tokens deshabilitados correctamente",
+                    text: "Vuelve a cargar la página para ver los cambios",
+                    icon: "success",
+                    button: "Continuar",
+                    }).then(function() {
+                        location.reload();
+                     });
+              },
+              error: function(data){
+                  /*
+                  * Se ejecuta si la peticón ha sido erronea
+                  * */
+                  alert("Problemas al tratar de enviar el formulario");
+              }
+          });
+          // Nos permite cancelar el envio del formulario
+          return false;
+      });
+  });
+</script>
 
 <script type="text/javascript">
   $('#add_token').on('show.bs.modal', function (event) {
@@ -614,7 +813,7 @@
             success: function(data)
             {
                 swal({
-                title: "Registros subidos correctamente",
+                title: "Alumnos registrados correctamente",
                   text: "Vuelve a cargar la página para ver los cambios",
                   icon: "success",
                   button: "Continuar",

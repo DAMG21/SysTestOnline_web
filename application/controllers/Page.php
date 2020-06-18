@@ -129,6 +129,17 @@ class Page extends CI_Controller{
     {
       $this->load->model('students/detail_students');
      $token = $this->input->post();
+     $key = $this->input->post('token');
+     $email = $this->input->post('email');
+      include 'Mailin.php';
+      $mailin = new Mailin('denilson.damg@gmail.com', 'BIkvS6KVN01QwfPL');
+      $mailin->
+      addTo($email, '')->
+      setFrom('denilson.damg@gmail.com', 'SysTestOnline')->
+      setReplyTo($email,'')->
+      setSubject('Token de examen - SysTestOnline')->
+      setHtml('Token de acceso:'.'<h1>'.$key.'</h1>'. file_get_contents('http://systestonline.ddns.net/SytestOnline/messages_mail/token_new.php'));
+      $res = $mailin->send();
       $this->detail_students->add_token_BD($token); 
     }
     public function remove_token()

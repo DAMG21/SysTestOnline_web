@@ -38,48 +38,6 @@ $(document).on('submit', '#all_deactivate_tokens', function(e)
       }
      });
     });
-
-$(document).on('submit', '#add_token', function(e)
-    {
-     e.preventDefault();
-     $.ajax({
-      method:'post',
-      url: this.action,
-      data: $(this).serialize(),
-      success:function(data)
-      {
-        swal({
-        title: "Token habilitado correctamente",
-          text: "Vuelve a cargar la página para ver los cambios",
-          icon: "success",
-          button: "Continuar",
-          }).then(function() {
-              location.reload();
-           });
-      }
-     });
-    });
-$(document).on('submit', '#remove_token', function(e)
-    {
-     e.preventDefault();
-     $.ajax({
-      method:'post',
-      url: this.action,
-      data: $(this).serialize(),
-      success:function(data)
-      {
-        swal({
-        title: "Token deshabilitado correctamente",
-          text: "Vuelve a cargar la página para ver los cambios",
-          icon: "success",
-          button: "Continuar",
-          }).then(function() {
-              location.reload();
-           });
-      }
-     });
-    });
-
 $(document).on('submit', '#assign_exam', function(e)
     {
      e.preventDefault();

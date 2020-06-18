@@ -161,12 +161,12 @@
 					        break;
 					    case "open_question":
 					    if ($detail_reagents->img_exercise === null ) {
-                              echo '<textarea class="form-control text-center" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;"></textarea>';				
+                              echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;"></textarea>';				
                   	    }elseif($detail_reagents->img_exercise == true) {
                                   $extension = pathinfo($detail_reagents->img_exercise)['extension'];
 
                                   if ($extension=="jpg" || $extension == "jpeg" || $extension == "png") {
-                                      echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" alt="Ejercicio" width="500" height="300">';
+                                      echo '<img src="../'.$detail_reagents->ruta_exercise.'" border="1" class="img-fluid" alt="Ejercicio" width="500" height="300">';
                                       echo '<textarea class="form-control" rows="3" placeholder="Argumenta tu respuesta" style="margin-top: 0px; margin-bottom: 0px; height: 68px;"></textarea>';         
                                   } else {
                                      echo '<audio src="../'.$detail_reagents->ruta_exercise.'" controls="controls" type="audio/mpeg" preload="preload"></audio>';
@@ -270,7 +270,7 @@
  <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      V 1.0.0.0
+      
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020</strong> SysTestOnline 

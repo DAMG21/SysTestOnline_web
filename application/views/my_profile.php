@@ -145,11 +145,11 @@
   </div>
  <footer class="main-footer">
     <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      V 1.0.0.0
+    <div class="float-center d-none d-sm-inline">
+      
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019-2020</strong> SysTestOnline 
+    <strong>Copyright &copy; 2019-2020</strong> SysTestOnline
   </footer>
   <!-- jQuery -->
 <script src="<?php echo base_url('assets/');?>plugins/jquery/jquery.min.js"></script>

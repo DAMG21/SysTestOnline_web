@@ -191,19 +191,19 @@
                               break;
                           case "2":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect2." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
                           case "3":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect3." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
                           case "4":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect1." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
@@ -222,19 +222,19 @@
                               break;
                           case "2":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect2." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
                           case "3":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect3." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
                           case "4":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect1." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
@@ -245,7 +245,7 @@
                   break;
               case "open_question":
               if ($detail->img_exercise === null ) {
-                      if ($detail->flag==="1") {
+                                        if ($detail->flag==="1") {
                                           echo "<div class='alert alert-success alert-dismissible'>
                                                   <h5><i class='icon fas fa-check'></i>Correcta</h5>
                                                   Respuesta correcta
@@ -334,7 +334,7 @@
                               break;
                           case "2":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect1." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
@@ -355,7 +355,7 @@
                               break;
                           case "2":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect1." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;
@@ -375,7 +375,7 @@
                               break;
                           case "2":
                               echo "<div class='alert alert-danger alert-dismissible'>
-                                      <h5><i class='icon fas fa-ban'></i> Incorrecta</h5>
+                                      <h5><i class='icon fas fa-times'></i> Incorrecta</h5>
                                       La respuesta: ".$detail->option_incorrect1." es incorrecta, la respuesta correcta es: ".$detail->option_correct."
                                     </div>";
                               break;

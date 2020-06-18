@@ -15,7 +15,11 @@
             </ol>
           </div>
         </div>
-        <center><button type="button" style="font-family: 'Roboto', sans-serif;" data-toggle="modal" data-target="#nuevo_grupo" class="btn btn-block btn-outline-primary btn-sm col-sm-2"><i class="fas fa-plus"></i> Agregar grupo</button></center>
+        <center>
+                <a class="btn btn-app" data-toggle="modal" data-target="#nuevo_grupo">
+                  <i class="fas fa-plus"></i> Agregar grupo
+                </a>
+        </center>
       </div><!-- /.container-fluid -->
     </section>
     <br>
@@ -77,7 +81,7 @@
  <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      V 1.0.0.0
+      
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020</strong> SysTestOnline 

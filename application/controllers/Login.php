@@ -17,6 +17,7 @@ class Login extends CI_Controller{
         $data  = $validate->row_array();
         $id_group  = $data['id_group'];
         $nombre  = $data['name_teacher'];
+        $email_teacher  = $data['email_teacher'];
         $clave  = $data['id_teacher'];
         $password  = $data['password_teacher'];
         $sesdata = array(
@@ -24,6 +25,7 @@ class Login extends CI_Controller{
             'nombre'  => $nombre,
             'id_teacher'  => $clave,
             'id_group'  => $id_group,
+            'email_teacher'  => $email_teacher,
             'logged_in' => TRUE);
         $this->session->set_userdata($sesdata);
 

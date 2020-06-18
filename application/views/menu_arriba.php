@@ -19,6 +19,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+  <?php
+   $email = $this->session->userdata('email_teacher');
+  ?>
+  <script type="text/javascript">
+   // sendinblue.identify ('<?php echo $email;?>');
+
+  (function() {
+    window.sib = { equeue: [], client_key: "u601vntxm8mdo4orn3ta1x61" };
+    /* OPTIONAL: email to identify request*/
+
+    var email = '<?php echo $email;?>';
+     window.sib.email_id = email ;
+    /* OPTIONAL: to hide the chat on your script uncomment this line*/
+     window.sib.display_chat = 1;
+     window.sib.display_logo = 0;
+    /* OPTIONAL: to overwrite the default welcome message uncomment this line*/
+     //window.sib.custom_welcome_message = 'Hola, ¿podemos ayudarte en algo?';
+    /* OPTIONAL: to overwrite the default offline message uncomment this line*/
+     //window.sib.custom_offline_message = 'Somos el equipo de servicio al cliente de SysTestOnline';
+    window.sendinblue = {}; for (var j = ['track', 'identify', 'trackLink', 'page'], i = 0; i < j.length; i++) { (function(k) { window.sendinblue[k] = function(){ var arg = Array.prototype.slice.call(arguments); (window.sib[k] || function() { var t = {}; t[k] = arg; window.sib.equeue.push(t);})(arg[0], arg[1], arg[2]);};})(j[i]);}var n = document.createElement("script"),i = document.getElementsByTagName("script")[0]; n.type = "text/javascript", n.id = "sendinblue-js", n.async = !0, n.src = "https://sibautomation.com/sa.js?key=" + window.sib.client_key, i.parentNode.insertBefore(n, i), window.sendinblue.page();
+  })();
+</script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
